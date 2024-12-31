@@ -8,13 +8,11 @@ class TicTacToe : CLIApp() {
     }
 
     private fun render(board: IntArray) {
-        var c = 0
         println("    1   2   3")
-        for (row in board.toList().chunked(3)) {
+        for ((c, row) in board.toList().chunked(3).withIndex()) {
             println("  +---+---+---+")
-            println((c + 65).toChar() + " | " + row.map { getPlayer(it) }.joinToString(" | ") + " |")
+            println(row.map { getPlayer(it) }.joinToString(" | ", (c + 65).toChar() + " | ", " |"))
 
-            c++
         }
         println("  +---+---+---+")
     }

@@ -14,7 +14,7 @@ class CatSay : CLIApp() {
         val maxLength = max(text.maxOf { it.length }, 24)
 
         println("." + "-".repeat(maxLength + 2) + ".")
-        println("| " + text.joinToString(" |\n| ") { it.padEnd(maxLength, ' ') } + " |")
+        println(text.joinToString(" |\n| ", "| ", " |") { it.padEnd(maxLength, ' ') })
         println("'---," + "-".repeat(maxLength - 2) + "'")
         println("    " + """
             |
