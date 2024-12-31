@@ -12,7 +12,7 @@ class TicTacToe : CLIApp() {
         println("    1   2   3")
         for (row in board.toList().chunked(3)) {
             println("  +---+---+---+")
-            println((c + 65).toChar() + " | " + row.map { i -> getPlayer(i) }.joinToString(" | ") + " |")
+            println((c + 65).toChar() + " | " + row.map { getPlayer(it) }.joinToString(" | ") + " |")
 
             c++
         }
@@ -85,6 +85,7 @@ class TicTacToe : CLIApp() {
 
             when (check(board)) {
                 1, 2 -> {
+                    render(board)
                     println("Player " + getPlayer(currentPlayer) + " won!\n")
 
                     return

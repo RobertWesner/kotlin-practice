@@ -24,7 +24,7 @@ fun main() {
                 .mapIndexed { i: Int, app: CLIApp -> (i + 1).toString() + ") " + app.name }
                 .joinToString("\n")
         )
-        println("e) Exit")
+        println("e) Exit\n")
 
         print("> ")
 
