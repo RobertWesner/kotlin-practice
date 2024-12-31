@@ -28,7 +28,7 @@ class TicTacToe : CLIApp() {
         )
         for (diagonal in diagonals) {
             if (diagonal in win) {
-                return diagonal[0].digitToInt()
+                return board[4]
             }
         }
 
@@ -63,6 +63,7 @@ class TicTacToe : CLIApp() {
             while (true) {
                 print("> ")
                 val input = readln().take(2).toCharArray()
+                input[0] = input[0].uppercaseChar()
 
                 if (
                     input[0] !in charArrayOf('A', 'B', 'C')
