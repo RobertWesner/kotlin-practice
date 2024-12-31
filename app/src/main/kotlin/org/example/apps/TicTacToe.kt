@@ -3,13 +3,96 @@ package org.example.apps
 class TicTacToe : CLIApp() {
     override val name: String = "TicTacToe"
 
-    override fun run(args: List<String>) {
-        var board = Array(9) { _ -> 0 }
+    private fun getPlayer(player: Int) : Char {
+        return charArrayOf(' ', 'X', 'O')[player];
+    }
 
+    private fun render(board: IntArray) {
+        var c = 0
+        println("    1   2   3")
         for (row in board.toList().chunked(3)) {
-            println("+---+---+---+")
-            println("| " + row.map { i -> charArrayOf(' ', 'X', '0')[i] }.joinToString(" | ") + " |")
+            println("  +---+---+---+")
+            println((c + 65).toChar() + " | " + row.map { i -> getPlayer(i) }.joinToString(" | ") + " |")
+
+            c++
         }
-        println("+---+---+---+")
+        println("  +---+---+---+")
+    }
+
+    private fun check(board: IntArray) : Int {
+        val win = arrayOf("111", "222")
+
+        val diagonals = arrayOf(
+            board.slice(0..8 step 4).joinToString(""),
+            board.slice(2..6 step 2).joinToString(""),
+        )
+        for (diagonal in diagonals) {
+            if (diagonal in win) {
+                return diagonal[0].digitToInt()
+            }
+        }
+
+        for (i in 0..2) {
+            if (
+                board.slice(i..(i + 2)).joinToString("") in arrayOf("111", "222")
+                    || board.slice(i..(i + 6) step 3).joinToString("") in arrayOf("111", "222")
+            ) {
+                return board[i]
+            }
+        }
+
+        return 0
+    }
+
+    override fun run(args: List<String>) {
+        val board = IntArray(9) { _ -> 0 }
+        var currentPlayer = 1
+
+        var i = 0
+        while (true) {
+            render(board)
+
+            if (i >= 9) {
+                println("It's a draw!\n")
+
+                return
+            }
+
+            println("Player: " + getPlayer(currentPlayer))
+
+            while (true) {
+                print("> ")
+                val input = readln().take(2).toCharArray()
+
+                if (
+                    input[0] !in charArrayOf('A', 'B', 'C')
+                        || input[1] !in charArrayOf('1', '2', '3')
+                ) {
+                    continue
+                }
+
+                val index = (input[0].code - 65) * 3 + input[1].digitToInt() - 1
+                if (board[index] != 0) {
+                    println("Already taken!")
+
+                    continue
+                }
+
+                board[index] = currentPlayer
+
+                break
+            }
+
+            when (check(board)) {
+                1, 2 -> {
+                    println("Player " + getPlayer(currentPlayer) + " won!\n")
+
+                    return
+                }
+            }
+
+            currentPlayer = if (currentPlayer == 1) 2 else 1
+            i++
+        }
     }
 }
