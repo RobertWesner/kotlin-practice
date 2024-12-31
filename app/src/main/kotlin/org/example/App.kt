@@ -1,6 +1,7 @@
 package org.example
 
 import org.example.apps.CLIApp
+import org.example.apps.CatSay
 import org.example.apps.TicTacToe
 import java.io.IO.println
 
@@ -9,6 +10,7 @@ class App {
         get() {
             return arrayOf(
                 TicTacToe(),
+                CatSay(),
             )
         }
 }
@@ -27,7 +29,7 @@ fun main() {
         print("> ")
 
         val raw = readln().split(" ")
-        if (raw[0] == "E") {
+        if (raw[0].lowercase() == "e") {
             break
         }
 
