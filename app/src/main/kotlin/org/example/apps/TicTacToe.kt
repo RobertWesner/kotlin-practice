@@ -34,7 +34,7 @@ class TicTacToe : CLIApp() {
 
         for (i in 0..2) {
             if (
-                board.slice(i..(i + 2)).joinToString("") in arrayOf("111", "222")
+                board.slice((i * 3)..(i * 3 + 2)).joinToString("") in arrayOf("111", "222")
                     || board.slice(i..(i + 6) step 3).joinToString("") in arrayOf("111", "222")
             ) {
                 return board[i]
